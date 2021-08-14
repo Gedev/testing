@@ -1,0 +1,86 @@
+
+Soit une enum TypeEntreprise tq:
+multinationale(-1), pme(20), indépendant(1), fictive(0)
+
+Attribut:
+- maxEmploye 
+
+Créez une classe entreprise tq:
+
+Attribut:
+---------
+
+légende: 
+g_ : présence d'un getter
+_s : présence d'un setter
+__ : présence d'aucun
+gs : présence des 2
+
+gs - String nom
+g_ - List<String> employes
+g_ - TypeEntreprise type
+
+
+Constructeurs:
+--------------
+
+(String nom) 
+	-> société fictive, liste employé null
+	-> si nom null -> IllArg
+
+(String nom, String independant) 
+	-> société independant, list avec 1 seul employe: independant
+	-> si nom ou independant = null -> IllegArg
+
+(String nom, TypeEntreprise type, List<Employe> employes) 
+	-> si nom null -> IllArg
+	-> employes : 
+		on ne reprend pas simplement la liste, on en crée une nouvelle(sauf si type fictif) et on ajoute les employe qu'il faut
+		ce qui implique d'adapter les employes repris au type de l'entreprise
+			exemple : type indépendant(limite 1), liste de 3 -> on ne garde que le 1e
+			aussi vrai pour fictif : si liste en param non null -> liste null quand meme 
+	-> si liste en param vide ou null et !fictif -> throw TypeEntrepriseInconsistancyException
+
+Methodes:
+
+void engager(String nom); 
+	-> ajouter l'employé à la liste
+	-> si nom null, IllArg
+boolean virer(String nom);
+	-> vire un employé de la liste
+	-> si nom null, IllArg
+	-> si l'employe est dans la liste des employé retourne true
+	-> si l'employe n'est pas dans la liste des employé retourne false
+
+
+
+
+///////////// A MEDITER:
+
+g_ -> String nomPatron
+
+(String nom, TypeEntreprise type, List<Employe> employes)
+	-> patron: premier de la liste si !fictif ou null si fictif
+
+(String nom, TypeEntreprise type, List<String> employes, String nomPatron)
+	-> si nom null -> IllArg
+	-> si le nomPatron ne se trouve pas dans la liste en parametre -> IllArg
+	-> le patron désigné se trouvant dans la liste DOIT se trouver dans la liste des employés de l'entreprise créée (sauf si type Fictive)
+	-> adaptation de la liste / Type (ATTENTION au patron)
+		exemple : type indépendant(limite 1), liste de 3 -> on ne garde que le patron
+		aussi vrai pour fictif : si liste en param non null -> liste null quand meme 
+	-> si liste vide ou null et le type !fictif -> throw TypeEntrepriseInconsistancyException
+
+
+changerPatron(String nomPatron)
+
+
+
+
+
+
+
+
+
+
+
